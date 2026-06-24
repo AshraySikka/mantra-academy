@@ -1,5 +1,5 @@
 ---
-title: "Free Online Demo Class — Grades 7 to 10"
+title: "Free Online Demo Class: Grades 7 to 10"
 date: 2026-06-20
 summary: "We're now offering a free online demo class for Maths and Science, CBSE and ICSE, Grades 7 to 10. Message us on WhatsApp or fill out the admissions form to book your slot."
 pinned: true
