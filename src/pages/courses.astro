@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const grades = [7, 8, 9, 10];
+const boards = [
+  {
+    name: 'CBSE',
+    detail: 'NCERT-aligned Maths and Science, with extra focus on application-based and HOTS questions that CBSE exams increasingly favor.',
+  },
+  {
+    name: 'ICSE',
+    detail: 'Detailed, concept-heavy coverage matching the ICSE board\'s depth, with structured practice for its longer-format exam papers.',
+  },
+];
+---
+
+<Layout
+  title="Courses — Maths & Science, Grades 7–10, CBSE & ICSE"
+  description="Maths and Science courses for Grades 7 to 10, covering both CBSE and ICSE boards, at Mantra Academy in Indirapuram, Ghaziabad."
+  path="/courses"
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Courses</p>
+      <h1>Maths &amp; Science, Grades 7–10</h1>
+      <p class="lede">
+        We teach both major boards, with the same philosophy across each:
+        build the foundation properly, then build speed and exam technique
+        on top of it.
+      </p>
+
+      <div class="grade-row">
+        {grades.map((g) => (
+          <span class="grade-chip">Grade {g}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream-warm">
+    <div class="container board-grid">
+      {boards.map((b) => (
+        <div class="card">
+          <h2>{b.name}</h2>
+          <p>{b.detail}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container subject-grid">
+      <div class="card">
+        <h2>Mathematics</h2>
+        <p>
+          Algebra, geometry, mensuration, trigonometry basics, and
+          data handling — taught with worked examples first, then
+          independent practice, so students build problem-solving
+          instinct rather than memorized steps.
+        </p>
+      </div>
+      <div class="card">
+        <h2>Science</h2>
+        <p>
+          Physics, Chemistry, and Biology fundamentals, taught with
+          real-world examples and diagrams that make abstract concepts
+          concrete, with regular revision built into the schedule.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy cta-strip">
+    <div class="container cta-strip__inner">
+      <h2>Not sure which board track fits your child?</h2>
+      <a class="btn btn--primary" href="/admissions">Book a Free Demo Class</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lede { font-size: var(--step-1); max-width: 60ch; }
+  .grade-row { display: flex; gap: var(--space-1); margin-top: var(--space-3); flex-wrap: wrap; }
+  .grade-chip {
+    background: var(--color-navy);
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    padding: 0.5em 1.2em;
+    border-radius: 999px;
+  }
+  .board-grid, .subject-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+  .cta-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  @media (max-width: 760px) {
+    .board-grid, .subject-grid { grid-template-columns: 1fr; }
+  }
+</style>

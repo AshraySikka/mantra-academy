@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: simple
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "notices"
+    label: "Noticeboard"
+    folder: "src/content/notices"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Pin to top", name: "pinned", widget: "boolean", default: false }
+      - { label: "Short summary (shows on noticeboard list)", name: "summary", widget: "text" }
+      - { label: "Full notice text", name: "body", widget: "markdown" }
