@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="From the CEO's Desk"
+  description="A message from Gurpreet Shahpuri, Founder and Educator at Mantra Academy, with 15+ years of teaching experience."
+  path="/ceo-message"
+>
+  <section class="section ceo">
+    <div class="container ceo__inner">
+      <div class="card ceo__card">
+        <p class="eyebrow">From the CEO's Desk</p>
+        <h1>Gurpreet Shahpuri</h1>
+        <p class="ceo__role">Founder &amp; Educator at Mantra Academy<br />15+ years of teaching experience</p>
+
+        <div class="ceo__message">
+          <p>
+            When I started teaching, I noticed the same pattern again and
+            again: students weren't struggling because they were incapable —
+            they were struggling because they'd been rushed past concepts
+            they never properly understood. By the time a topic became
+            "old," the gaps were still there, just buried under new chapters.
+          </p>
+          <p>
+            Mantra Academy exists to fix that. We slow down where it counts,
+            make sure a concept actually lands before moving forward, and
+            build confidence the only way it's really built — through
+            genuine understanding, not shortcuts.
+          </p>
+          <p>
+            Every student who walks in unsure of themselves in Maths or
+            Science is, in my experience, just a student who hasn't yet had
+            someone explain it properly and patiently. That's what we aim
+            to be for every family that joins us.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ceo__inner { max-width: 760px; margin: 0 auto; }
+  .ceo__role { color: var(--color-mustard); font-weight: 700; margin-bottom: var(--space-3); }
+  .ceo__message p { font-size: var(--step-0); }
+</style>
