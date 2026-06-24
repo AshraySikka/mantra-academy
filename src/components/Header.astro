@@ -63,7 +63,7 @@ const currentPath = new URL(Astro.request.url).pathname;
     z-index: 1;
   }
   .brand img {
-    height: 120px;
+    height: 100px;
     width: auto;
     display: block;
   }
@@ -114,7 +114,15 @@ const currentPath = new URL(Astro.request.url).pathname;
 
   @media (max-width: 880px) {
     .nav-toggle-label { display: flex; }
+    .brand {
+      position: static;
+      transform: none;
+    }
+    .brand img {
+      height: 48px;
+    }
     .site-nav {
+      margin-left: 0;
       position: absolute;
       top: 100%; left: 0; right: 0;
       background: var(--color-cream);
@@ -129,7 +137,6 @@ const currentPath = new URL(Astro.request.url).pathname;
       flex-direction: column;
       gap: var(--space-2);
     }
-    .site-nav { margin-left: 0; }
     .nav-toggle:checked ~ .site-nav { display: flex; }
   }
 </style>
