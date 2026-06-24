@@ -34,9 +34,19 @@ function stars(rating: number) {
         </div>
       </div>
       <div class="hero__art" aria-hidden="true">
-        <div class="hero__badge">
-          <span class="hero__badge-num">7–10</span>
-          <span class="hero__badge-label">Grades taught</span>
+        <div class="stat-cluster">
+          <div class="stat-chip stat-chip--a">
+            <span class="stat-chip__num">80+</span>
+            <span class="stat-chip__label">Students taught yearly</span>
+          </div>
+          <div class="stat-chip stat-chip--b">
+            <span class="stat-chip__num">2</span>
+            <span class="stat-chip__label">Boards · CBSE &amp; ICSE</span>
+          </div>
+          <div class="stat-chip stat-chip--c">
+            <span class="stat-chip__num">17+</span>
+            <span class="stat-chip__label">Years teaching</span>
+          </div>
         </div>
       </div>
     </div>
@@ -111,24 +121,54 @@ function stars(rating: number) {
   }
   .hero__lede { font-size: var(--step-1); color: var(--color-charcoal); max-width: 46ch; }
   .hero__actions { display: flex; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap; }
-  .hero__art { display: flex; justify-content: center; }
-  .hero__badge {
+
+  .hero__art { display: flex; justify-content: center; align-items: center; min-height: 320px; }
+  .stat-cluster {
+    position: relative;
+    width: 320px;
+    height: 320px;
+  }
+  .stat-chip {
+    position: absolute;
     background: var(--color-navy);
     color: var(--color-white);
     border-radius: var(--radius);
-    width: 220px; height: 220px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    box-shadow: 0 20px 40px -16px rgba(27,58,99,0.4);
-    transform: rotate(-3deg);
+    padding: 1.1em 1.4em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    box-shadow: 0 16px 32px -12px rgba(27,58,99,0.4);
+    animation: float 6s ease-in-out infinite;
   }
-  .hero__badge-num {
+  .stat-chip__num {
     font-family: var(--font-display);
-    font-size: var(--step-5);
     font-weight: 800;
+    font-size: var(--step-3);
     color: var(--color-mustard-light);
+    line-height: 1;
   }
-  .hero__badge-label { font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; }
+  .stat-chip__label {
+    font-size: var(--step--1);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .stat-chip--a { top: 0; left: 10%; animation-delay: 0s; }
+  .stat-chip--b {
+    top: 38%; right: 0;
+    background: var(--color-mustard);
+    color: var(--color-navy-deep);
+    animation-delay: 0.6s;
+  }
+  .stat-chip--b .stat-chip__num { color: var(--color-navy-deep); }
+  .stat-chip--c { bottom: 4%; left: 18%; animation-delay: 1.2s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stat-chip { animation: none; }
+  }
 
   .section__lede { max-width: 60ch; font-size: var(--step-1); margin-bottom: var(--space-4); }
   .why-grid {
@@ -140,7 +180,7 @@ function stars(rating: number) {
   .testimonial-heading { text-align: center; }
   .testimonial-heading .eyebrow {
     display: flex;
-    width: 100%
+    width: 100%;
     justify-content: center;
   }
   .testimonial-grid {
