@@ -20,3 +20,17 @@ collections:
       - { label: "Pin to top", name: "pinned", widget: "boolean", default: false }
       - { label: "Short summary (shows on noticeboard list)", name: "summary", widget: "text" }
       - { label: "Full notice text", name: "body", widget: "markdown" }
+
+  - name: "testimonials"
+    label: "Reviews"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Parent/Student name", name: "author", widget: "string" }
+      - { label: "Star rating (1-5)", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Show on homepage (only top 4 newest featured ones show)", name: "featured", widget: "boolean", default: false }
+      - { label: "Review text", name: "body", widget: "text" }

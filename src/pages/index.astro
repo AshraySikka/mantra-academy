@@ -1,5 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allTestimonials = await getCollection('testimonials');
+const featured = allTestimonials
+  .filter((t) => t.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
 ---
 
 <Layout
@@ -57,14 +64,23 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section class="section section--navy">
-    <div class="container testimonial">
-      <p class="eyebrow">⭐⭐⭐⭐⭐ Testimonial</p>
-      <blockquote>
-        "Mantra Academy helped me understand Maths instead of
-        just memorizing formulas. The improvement in confidence has been the
-        biggest change."
-      </blockquote>
-      <p class="testimonial__author">— Amaira Vij</p>
+    <div class="container">
+      <p class="eyebrow" style="text-align:center; display:block;">⭐⭐⭐⭐⭐ What parents &amp; students say</p>
+      <h2 style="text-align:center;">Real reviews from real families.</h2>
+      <div class="testimonial-grid">
+        {featured.map((t) => (
+          <div class="testimonial-card">
+            <p class="testimonial-card__stars" aria-label={`${t.data.rating} out of 5 stars`}>
+              {'⭐'.repeat(t.data.rating)}
+            </p>
+            <blockquote>{t.body?.trim()}</blockquote>
+            <p class="testimonial-card__author">— {t.data.author}</p>
+          </div>
+        ))}
+      </div>
+      <p class="testimonial-cta">
+        <a class="btn btn--outline" href="/testimonials">Read all reviews</a>
+      </p>
     </div>
   </section>
 
@@ -115,15 +131,28 @@ import Layout from '../layouts/Layout.astro';
     gap: var(--space-3);
   }
 
-  .testimonial { max-width: 760px; text-align: center; margin: 0 auto; }
-  .testimonial blockquote {
-    font-family: var(--font-display);
-    font-size: var(--step-2);
-    font-weight: 500;
-    margin: 0 0 var(--space-2);
-    color: var(--color-white);
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-4);
   }
-  .testimonial__author { color: var(--color-mustard-light); font-weight: 700; }
+  .testimonial-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+  }
+  .testimonial-card__stars { color: var(--color-mustard-light); margin-bottom: 0.5em; font-size: var(--step--1); }
+  .testimonial-card blockquote {
+    margin: 0 0 0.6em;
+    font-size: var(--step-0);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-weight: 400;
+  }
+  .testimonial-card__author { color: var(--color-mustard-light); font-weight: 700; margin: 0; }
+  .testimonial-cta { text-align: center; margin-top: var(--space-4); }
 
   .cta-band__inner {
     display: flex;
@@ -137,5 +166,6 @@ import Layout from '../layouts/Layout.astro';
     .hero__inner { grid-template-columns: 1fr; }
     .hero__art { order: -1; }
     .why-grid { grid-template-columns: 1fr; }
+    .testimonial-grid { grid-template-columns: 1fr; }
   }
 </style>

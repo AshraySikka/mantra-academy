@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allTestimonials = (await getCollection('testimonials')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const avgRating = allTestimonials.length
+  ? (allTestimonials.reduce((sum, t) => sum + t.data.rating, 0) / allTestimonials.length).toFixed(1)
+  : null;
+---
+
+<Layout
+  title="Reviews & Testimonials"
+  description="Read what parents and students say about Mantra Academy's Maths and Science tuition in Indirapuram, Ghaziabad."
+  path="/testimonials"
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Reviews</p>
+      <h1>What parents &amp; students say</h1>
+      {avgRating && (
+        <p class="avg-rating">⭐ {avgRating} average from {allTestimonials.length} reviews</p>
+      )}
+
+      <div class="review-grid">
+        {allTestimonials.map((t) => (
+          <div class="card review-card">
+            <p class="review-card__stars" aria-label={`${t.data.rating} out of 5 stars`}>
+              {'⭐'.repeat(t.data.rating)}
+            </p>
+            <blockquote>{t.body?.trim()}</blockquote>
+            <p class="review-card__author">— {t.data.author}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .avg-rating { font-size: var(--step-1); font-weight: 700; color: var(--color-mustard); margin-bottom: var(--space-4); }
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  .review-card__stars { color: var(--color-mustard); margin-bottom: 0.5em; font-size: var(--step--1); }
+  .review-card blockquote { margin: 0 0 0.6em; font-size: var(--step-0); }
+  .review-card__author { color: var(--color-navy); font-weight: 700; margin: 0; }
+  @media (max-width: 900px) {
+    .review-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .review-grid { grid-template-columns: 1fr; }
+  }
+</style>

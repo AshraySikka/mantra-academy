@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
@@ -16,7 +17,13 @@ const fullTitle = `${title} | ${siteName}`;
 const SITE_URL = 'https://mantraacademy.example';
 const canonicalURL = `${SITE_URL}${path}`;
 
-const schema = {
+const allTestimonials = await getCollection('testimonials');
+const reviewCount = allTestimonials.length;
+const avgRating = reviewCount
+  ? allTestimonials.reduce((sum, t) => sum + t.data.rating, 0) / reviewCount
+  : null;
+
+const schema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   "name": "Mantra Academy",
@@ -37,6 +44,13 @@ const schema = {
     "https://www.facebook.com/share/1CpeZgonLD/"
   ]
 };
+if (avgRating && reviewCount > 0) {
+  schema.aggregateRating = {
+    "@type": "AggregateRating",
+    "ratingValue": avgRating.toFixed(1),
+    "reviewCount": reviewCount,
+  };
+}
 ---
 
 <!doctype html>

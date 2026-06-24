@@ -11,4 +11,14 @@ const notices = defineCollection({
   }),
 });
 
-export const collections = { notices };
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
+  schema: z.object({
+    author: z.string(),
+    rating: z.number().min(1).max(5).default(5),
+    date: z.date(),
+    featured: z.boolean().default(false),
+  }),
+});
+
+export const collections = { notices, testimonials };
