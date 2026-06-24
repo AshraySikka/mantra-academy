@@ -77,5 +77,24 @@ const schema = {
       <slot />
     </main>
     <Footer />
+
+    <!--
+      Netlify Identity widget — required for invite/password-reset/confirmation
+      links to work. Those links land on the site root with a token in the URL
+      hash (e.g. #recovery_token=...); this script detects that token and pops
+      up the "set your password" form. Without it, the link just opens the
+      homepage and does nothing.
+    -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          // no-op on init; widget auto-handles recovery/invite/confirmation tokens
+        });
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    </script>
   </body>
 </html>
