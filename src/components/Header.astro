@@ -14,8 +14,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 <header class="site-header">
   <div class="container site-header__inner">
     <a href="/" class="brand" aria-label="Mantra Academy home">
-      <span class="brand__word brand__word--mantra">Mantra</span>
-      <span class="brand__word brand__word--academy">academy</span>
+      <img src="/images/logo.png" alt="Mantra Academy" width="200" height="120" />
     </a>
 
     <input type="checkbox" id="nav-toggle" class="nav-toggle" />
@@ -58,17 +57,14 @@ const currentPath = new URL(Astro.request.url).pathname;
     line-height: 0.85;
     font-family: var(--font-display);
   }
-  .brand__word--mantra {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--color-navy);
-    letter-spacing: 0.01em;
+  .brand {
+    display: flex;
+    align-items: center;
   }
-  .brand__word--academy {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-mustard);
-    margin-left: 0.1em;
+  .brand img {
+    height: 56px;
+    width: auto;
+    display: block;
   }
 
   .nav-toggle { display: none; }

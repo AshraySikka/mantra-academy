@@ -10,14 +10,25 @@ import Layout from '../layouts/Layout.astro';
   <section class="section ceo">
     <div class="container ceo__inner">
       <div class="card ceo__card">
-        <p class="eyebrow">From the CEO's Desk</p>
-        <h1>Gurpreet Shahpuri</h1>
-        <p class="ceo__role">Founder &amp; Educator at Mantra Academy<br />15+ years of teaching experience</p>
+        <div class="ceo__header">
+          <img
+            class="ceo__photo"
+            src="/images/gurpreet-shahpuri.jpg"
+            alt="Gurpreet Shahpuri, Founder and Educator at Mantra Academy"
+            width="200"
+            height="200"
+          />
+          <div>
+            <p class="eyebrow">From the CEO's Desk</p>
+            <h1>Gurpreet Shahpuri</h1>
+            <p class="ceo__role">Founder &amp; Educator at Mantra Academy<br />15+ years of teaching experience</p>
+          </div>
+        </div>
 
         <div class="ceo__message">
           <p>
             When I started teaching, I noticed the same pattern again and
-            again: students weren't struggling because they were incapable,
+            again: students weren't struggling because they were incapable —
             they were struggling because they'd been rushed past concepts
             they never properly understood. By the time a topic became
             "old," the gaps were still there, just buried under new chapters.
@@ -25,7 +36,7 @@ import Layout from '../layouts/Layout.astro';
           <p>
             Mantra Academy exists to fix that. We slow down where it counts,
             make sure a concept actually lands before moving forward, and
-            build confidence the only way it's really built, through
+            build confidence the only way it's really built — through
             genuine understanding, not shortcuts.
           </p>
           <p>
@@ -42,6 +53,24 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   .ceo__inner { max-width: 760px; margin: 0 auto; }
-  .ceo__role { color: var(--color-mustard); font-weight: 700; margin-bottom: var(--space-3); }
+  .ceo__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .ceo__photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    border: 4px solid var(--color-mustard);
+  }
+  .ceo__role { color: var(--color-mustard); font-weight: 700; margin: 0; }
   .ceo__message p { font-size: var(--step-0); }
+
+  @media (max-width: 560px) {
+    .ceo__header { flex-direction: column; text-align: center; }
+  }
 </style>
