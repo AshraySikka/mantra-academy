@@ -50,19 +50,20 @@ const currentPath = new URL(Astro.request.url).pathname;
     align-items: center;
     justify-content: space-between;
     padding-block: 0.9rem;
+    position: relative;
+    min-height: 48px;
   }
   .brand {
-    display: flex;
-    flex-direction: column;
-    line-height: 0.85;
-    font-family: var(--font-display);
-  }
-  .brand {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
+    z-index: 1;
   }
   .brand img {
-    height: 100px;
+    height: 120px;
     width: auto;
     display: block;
   }
@@ -86,6 +87,7 @@ const currentPath = new URL(Astro.request.url).pathname;
     display: flex;
     align-items: center;
     gap: var(--space-4);
+    margin-left: 180px;
   }
   .site-nav ul {
     display: flex;
@@ -127,6 +129,7 @@ const currentPath = new URL(Astro.request.url).pathname;
       flex-direction: column;
       gap: var(--space-2);
     }
+    .site-nav { margin-left: 0; }
     .nav-toggle:checked ~ .site-nav { display: flex; }
   }
 </style>
