@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://mantraacademy.example/sitemap-index.xml
+Sitemap: https://learnwithmantra.com/sitemap-index.xml

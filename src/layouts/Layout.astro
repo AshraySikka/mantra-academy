@@ -13,8 +13,7 @@ interface Props {
 const { title, description, path = '' } = Astro.props;
 const siteName = 'Mantra Academy';
 const fullTitle = `${title} | ${siteName}`;
-// NOTE: swap SITE_URL once the domain is registered.
-const SITE_URL = 'https://mantraacademy.example';
+const SITE_URL = 'https://learnwithmantra.com';
 const canonicalURL = `${SITE_URL}${path}`;
 
 const allTestimonials = await getCollection('testimonials');

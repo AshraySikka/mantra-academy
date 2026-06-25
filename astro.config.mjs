@@ -2,8 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// NOTE: update `site` once the domain is registered (e.g. https://mantraacademy.com)
 export default defineConfig({
-  site: 'https://mantraacademy.example',
+  site: 'https://learnwithmantra.com',
   integrations: [sitemap()],
 });
