@@ -43,7 +43,7 @@ function stars(rating: number) {
         <div class="hero__stat-row">
           <div class="hero__stat">
             <span class="hero__stat-num">17+</span>
-            <span class="hero__stat-label">Years of<br />Teaching Experience</span>
+            <span class="hero__stat-label">Years of<br />Experience</span>
           </div>
           <div class="hero__stat">
             <span class="hero__stat-num">500+</span>
@@ -128,27 +128,39 @@ function stars(rating: number) {
     display: flex; 
     align-items: center; 
   }
+  /* This strips out the massive global top padding on the "Why Us" section */
+  .hero + .section {
+    padding-top: var(--space-2); 
+  }
   .hero__bg { 
     position: absolute; 
     inset: 0; 
-    z-index: 0; 
+    z-index: 0;
+    max-width: 1600px;
+    margin: 0 auto; 
   }
   .hero__bg img { 
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    object-position: center 25%; 
+    object-position: 0% 0%; 
   }
   .hero__fade {
     position: absolute; 
     inset: 0;
-    background: linear-gradient(90deg,
-      var(--color-cream) 0%,
-      var(--color-cream) 38%,
-      rgba(248,243,227,0.85) 50%,
-      rgba(248,243,227,0.15) 68%,
-      rgba(248,243,227,0) 80%
-    );
+    background: 
+      /* 1. The left-to-right fade for the text */
+      linear-gradient(40deg,
+        var(--color-cream) 0%,
+        var(--color-cream) 42%,
+        rgba(248,243,227,0.8) 52%,
+        rgba(248,243,227,0) 68%
+      ),
+      /* 2. The bottom-to-top fade to blend the floor/edge */
+      linear-gradient(0deg, 
+        var(--color-cream) 0%, 
+        rgba(248,243,227,0) 15%
+      );
   }
   .hero__inner { position: relative; z-index: 1; }
   .hero__copy { max-width: 580px; }
@@ -177,6 +189,7 @@ function stars(rating: number) {
   
   .hero__trust {
     margin-top: var(--space-3);
+    margin-bottom: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
@@ -196,12 +209,56 @@ function stars(rating: number) {
     flex: none;
   }
 
-  @media (max-width: 900px) {
-    .hero { min-height: 0; padding: var(--space-4) 0 var(--space-4); }
-    .hero__bg { position: relative; inset: auto; height: 280px; margin: 0 calc(-1 * var(--space-3)) var(--space-3); }
-    .hero__fade { background: linear-gradient(180deg, rgba(248,243,227,0) 60%, var(--color-cream) 100%); }
-    .hero__copy { max-width: 100%; }
-    .hero__stat-row { flex-wrap: wrap; gap: var(--space-2); width: 100%; }
+@media (max-width: 900px) {
+    .hero { 
+      min-height: auto; 
+      padding: 0; 
+      display: flex;
+      flex-direction: column;
+    }
+    .hero__bg { 
+      position: relative; 
+      inset: auto; 
+      width: 100%; 
+      height: 380px; /* Gives the image more breathing room */
+    }
+    .hero__bg img {
+      object-position: center 20%; /* Centers her face better on mobile */
+    }
+    .hero__fade { 
+      background: linear-gradient(180deg, rgba(248,243,227,0) 40%, var(--color-cream) 100%); 
+    }
+    .hero__inner { 
+      margin-top: -60px; /* Pulls the text block smoothly up into the fade */
+    }
+    .hero__copy { 
+      max-width: 100%; 
+    }
+
+    /* Eyebrow fix: Adds a readable background pill */
+    .hero .eyebrow {
+      background: rgba(248, 243, 227, 0.95);
+      padding: 6px 14px;
+      border-radius: 999px;
+      display: inline-block;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 12px;
+    }
+    /* Stats block fix: Forces one line */
+    .hero__stat-row { 
+      flex-wrap: nowrap; /* Stops the boxes from stacking */
+      justify-content: space-between;
+      gap: 8px; 
+      width: 100%; 
+      padding: var(--space-2);
+    }
+    /* Shrinks the text slightly so it fits perfectly on narrow phone screens */
+    .hero__stat-num {
+      font-size: 1.3rem; 
+    }
+    .hero__stat-label {
+      font-size: 0.75rem; 
+    }
   }
 
   /* --- Other Sections --- */

@@ -2,64 +2,29 @@
 import Layout from '../layouts/Layout.astro';
 
 const scienceResults = [
-  { name: "Srishti", score: 99, img: "sci-srishti" },
-  { name: "Harshil", score: 98, img: "sci-harshil" },
-  { name: "Danish", score: 98, img: "sci-danish" },
-  { name: "Vishu", score: 98, img: "sci-vishu" },
-  { name: "Prashant", score: 98, img: "sci-prashant" },
-  { name: "Tanuj", score: 98, img: "sci-tanuj" },
-  { name: "Sanidhya", score: 97, img: "sci-sanidhya" },
-  { name: "Ayush", score: 97, img: "sci-ayush" },
-  { name: "Viraz", score: 97, img: "sci-viraz" },
-  { name: "Hanita", score: 97, img: "sci-hanita" },
-  { name: "Avika", score: 97, img: "sci-avika" },
-  { name: "Priyanshi", score: 95, img: "sci-priyanshi" },
-  { name: "Mihika", score: 95, img: "sci-mihika" },
-  { name: "Vaidahi", score: 95, img: "sci-vaidahi" },
-  { name: "Sarthak", score: 95, img: "sci-sarthak" },
-  { name: "Neel", score: 95, note: "Crash Course", img: "sci-neel" },
-  { name: "Pratham", score: 94, img: "sci-pratham" },
-  { name: "Jayani", score: 94, img: "sci-jayani" },
-  { name: "Vanshika", score: 94, img: "sci-vanshika" },
-  { name: "Dev", score: 94, img: "sci-dev" },
-  { name: "Tanishqa", score: 93, img: "sci-tanishqa" },
-  { name: "Devit", score: 93, img: "sci-devit" },
-  { name: "Hitarth", score: 93, img: "sci-hitarth" },
-  { name: "Aayush", score: 93, img: "sci-aayush2" },
-  { name: "Shubhangi", score: 93, img: "sci-shubhangi" },
-  { name: "Prachi", score: 93, img: "sci-prachi" },
-  { name: "Aaryabrata", score: 92, img: "sci-aaryabrata" },
-  { name: "Ishaan", score: 92, img: "sci-ishaan" },
-  { name: "Akshara", score: 92, img: "sci-akshara" },
-  { name: "Khush", score: 92, img: "sci-khush" },
-  { name: "Dhruvi", score: 92, img: "sci-dhruvi" },
-  { name: "Bharg", score: 91, img: "sci-bharg" },
-  { name: "Yug", score: 91, img: "sci-yug" },
-  { name: "Dwiti", score: 91, img: "sci-dwiti" },
-  { name: "Mitra", score: 91, img: "sci-mitra" },
-  { name: "Dhara", score: 90, img: "sci-dhara" },
+  { name: "Srishti", score: 99 }, { name: "Harshil", score: 98 }, { name: "Danish", score: 98 },
+  { name: "Vishu", score: 98 }, { name: "Prashant", score: 98 }, { name: "Tanuj", score: 98 },
+  { name: "Sanidhya", score: 97 }, { name: "Ayush", score: 97 }, { name: "Viraz", score: 97 },
+  { name: "Hanita", score: 97 }, { name: "Avika", score: 97 }, { name: "Priyanshi", score: 95 },
+  { name: "Mihika", score: 95 }, { name: "Vaidahi", score: 95 }, { name: "Sarthak", score: 95 },
+  { name: "Neel", score: 95, note: "Crash Course" }, { name: "Pratham", score: 94 },
+  { name: "Jayani", score: 94 }, { name: "Vanshika", score: 94 }, { name: "Dev", score: 94 },
+  { name: "Tanishqa", score: 93 }, { name: "Devit", score: 93 }, { name: "Hitarth", score: 93 },
+  { name: "Aayush", score: 93 }, { name: "Shubhangi", score: 93 }, { name: "Prachi", score: 93 },
+  { name: "Aaryabrata", score: 92 }, { name: "Ishaan", score: 92 }, { name: "Akshara", score: 92 },
+  { name: "Khush", score: 92 }, { name: "Dhruvi", score: 92 }, { name: "Bharg", score: 91 },
+  { name: "Yug", score: 91 }, { name: "Dwiti", score: 91 }, { name: "Mitra", score: 91 },
+  { name: "Dhara", score: 90 },
 ];
 
 const mathsScienceResults = [
-  { name: "Harshil", score: 98, img: "ms-harshil" },
-  { name: "Sanidhya", score: 96.5, img: "ms-sanidhya" },
-  { name: "Danish", score: 96.5, img: "ms-danish" },
-  { name: "Viraz", score: 96, img: "ms-viraz" },
-  { name: "Ayush", score: 96, img: "ms-ayush" },
-  { name: "Srishti", score: 96, img: "ms-srishti" },
-  { name: "Vishu", score: 95, img: "ms-vishu" },
-  { name: "Priyanshi", score: 94.5, img: "ms-priyanshi" },
-  { name: "Tanishqa", score: 94, img: "ms-tanishqa" },
-  { name: "Pranshant", score: 93.5, img: "ms-pranshant" },
-  { name: "Devit", score: 93.5, img: "ms-devit" },
-  { name: "Pratham", score: 93.5, img: "ms-pratham" },
-  { name: "Mihika", score: 93, img: "ms-mihika" },
-  { name: "Aaryabrata", score: 93, img: "ms-aaryabrata" },
-  { name: "Bharg", score: 93, note: "Crash Course", img: "ms-bharg" },
-  { name: "Jayani", score: 91, img: "ms-jayani" },
-  { name: "Tanuj", score: 90.5, img: "ms-tanuj" },
-  { name: "Hanita", score: 90.5, img: "ms-hanita" },
-  { name: "Hitarth", score: 90.5, img: "ms-hitarth" },
+  { name: "Harshil", score: 98 }, { name: "Sanidhya", score: 96.5 }, { name: "Danish", score: 96.5 },
+  { name: "Viraz", score: 96 }, { name: "Ayush", score: 96 }, { name: "Srishti", score: 96 },
+  { name: "Vishu", score: 95 }, { name: "Priyanshi", score: 94.5 }, { name: "Tanishqa", score: 94 },
+  { name: "Pranshant", score: 93.5 }, { name: "Devit", score: 93.5 }, { name: "Pratham", score: 93.5 },
+  { name: "Mihika", score: 93 }, { name: "Aaryabrata", score: 93 },
+  { name: "Bharg", score: 93, note: "Crash Course" }, { name: "Jayani", score: 91 },
+  { name: "Tanuj", score: 90.5 }, { name: "Hanita", score: 90.5 }, { name: "Hitarth", score: 90.5 },
 ];
 
 const allScores = [...scienceResults, ...mathsScienceResults].map(r => r.score);
@@ -76,11 +41,11 @@ const top = Math.max(...allScores);
 >
   <section class="results-hero">
     <div class="container">
-      <p class="eyebrow" style="display:flex; justify-content:center;">X-Board Results</p>
-      <h1>Numbers students actually walked in with.</h1>
+      <p class="eyebrow" style="display:flex; justify-content:center;">Proven Results</p>
+      <h1>Founder's Academic Track Record</h1>
       <p class="subhead">
-        Real board scores from students taught using the same teaching approach now used at Mantra Academy.
-        <span class="disclosure">Results shown were achieved while teaching at ThinkGurus, prior to founding Mantra Academy.</span>
+        Before establishing Mantra Academy, our founder helped students achieve outstanding academic results through personalized guidance, strong fundamentals, and a structured learning approach. The achievements below reflect the experience and teaching philosophy that continue to shape every program at Mantra Academy.
+        <span class="disclosure">Results shown are from students personally taught by our founder prior to the establishment of Mantra Academy. Individual student outcomes vary based on factors such as effort, attendance, and engagement.</span>
       </p>
 
       <div class="summary-stats">
@@ -89,64 +54,21 @@ const top = Math.max(...allScores);
           <span class="stat-label">Average Score</span>
         </div>
         <div class="card stat-card">
-          <span class="stat-num">{pctAbove90}%</span>
-          <span class="stat-label">Students Scoring 90%+</span>
+          <span class="stat-num">55</span>
+          <span class="stat-label">Students Scored 90%+</span>
         </div>
         <div class="card stat-card">
           <span class="stat-num">{top}%</span>
           <span class="stat-label">Top Score</span>
         </div>
         <div class="card stat-card">
-          <span class="stat-num">{allScores.length}</span>
-          <span class="stat-label">Students Shown</span>
+          <span class="stat-num">2025</span>
+          <span class="stat-label">Results Aggregate</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Science</h2>
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="95">95+</button>
-        <button class="filter-btn" data-filter="90">90+</button>
-      </div>
-      <div class="card-grid" id="science-grid">
-        {scienceResults.map((r) => (
-          <div class="result-card" data-score={r.score}>
-            <img class="avatar-photo" src={`/images/results/${r.img}.jpg`} alt={r.name} width="80" height="80" loading="lazy" />
-            <p class="r-name">{r.name}</p>
-            <p class="r-score">{r.score}%</p>
-            {r.note && <p class="r-note">{r.note}</p>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--cream-warm">
-    <div class="container">
-      <h2 class="section-title">Maths &amp; Science Combined</h2>
-      <div class="card-grid">
-        {mathsScienceResults.map((r) => (
-          <div class="result-card" data-score={r.score}>
-            <img class="avatar-photo" src={`/images/results/${r.img}.jpg`} alt={r.name} width="80" height="80" loading="lazy" />
-            <p class="r-name">{r.name}</p>
-            <p class="r-score">{r.score}%</p>
-            {r.note && <p class="r-note">{r.note}</p>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--navy" style="text-align:center;">
-    <div class="container">
-      <h2>Want results like these for your child?</h2>
-      <a href="/admissions" class="btn btn--primary">Book a Free Demo Class</a>
-    </div>
-  </section>
 </Layout>
 
 <style>
@@ -213,13 +135,16 @@ const top = Math.max(...allScores);
   .result-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -10px rgba(27,58,99,0.3); }
   .result-card.hidden { display: none; }
 
-  .avatar-photo {
-    width: 64px; height: 64px;
+  .avatar {
+    width: 48px; height: 48px;
     border-radius: 50%;
-    object-fit: cover;
+    background: linear-gradient(135deg, var(--color-navy), var(--color-navy-deep));
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    display: flex; align-items: center; justify-content: center;
     margin: 0 auto 0.4em;
-    display: block;
-    border: 2px solid var(--color-mustard);
   }
   .r-name { font-weight: 600; font-size: var(--step--1); margin-bottom: 2px; color: var(--color-navy); }
   .r-score { color: var(--color-mustard); font-weight: 800; font-size: var(--step-0); margin: 0; }
