@@ -43,11 +43,14 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="form-wrap card">
         <h2>Inquiry form</h2>
-        <iframe
-          title="Mantra Academy Admissions Inquiry Form"
-          src="https://form.jotform.com/260290916550254"
-          loading="lazy"
-        ></iframe>
+        <p class="form-wrap__hint">Fill this out and we'll get back to you with demo class timings.</p>
+        <div class="form-wrap__frame">
+          <iframe
+            title="Mantra Academy Admissions Inquiry Form"
+            src="https://form.jotform.com/260290916550254"
+            loading="lazy"
+          ></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -68,6 +71,19 @@ import Layout from '../layouts/Layout.astro';
     min-height: 700px;
     border: none;
     border-radius: var(--radius);
+  }
+  .form-wrap__hint { color: var(--color-charcoal); margin-bottom: var(--space-2); }
+  .form-wrap__frame {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(27,58,99,0.12);
+  }
+  .form-wrap__frame iframe {
+    width: 100%;
+    height: 80vh;
+    min-height: 600px;
+    border: none;
+    display: block;
   }
   @media (max-width: 900px) {
     .admissions-grid { grid-template-columns: 1fr; }

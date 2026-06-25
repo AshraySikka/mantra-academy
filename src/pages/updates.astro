@@ -25,11 +25,13 @@ const notices = (await getCollection('notices')).sort((a, b) => {
         )}
         {notices.map((notice) => (
           <article class="notice-card card">
-            {notice.data.pinned && <span class="notice-pin">Pinned</span>}
+            <div class="notice-card__top">
+              <p class="notice-date">
+                {notice.data.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </p>
+              {notice.data.pinned && <span class="notice-pin">Pinned</span>}
+            </div>
             <h2>{notice.data.title}</h2>
-            <p class="notice-date">
-              {notice.data.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
             <p>{notice.data.summary}</p>
           </article>
         ))}
@@ -42,15 +44,20 @@ const notices = (await getCollection('notices')).sort((a, b) => {
   .lede { font-size: var(--step-1); max-width: 60ch; margin-bottom: var(--space-4); }
   .notice-list { display: flex; flex-direction: column; gap: var(--space-3); }
   .notice-card { position: relative; }
+  .notice-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4em;
+  }
   .notice-pin {
-    position: absolute;
-    top: var(--space-3); right: var(--space-3);
     background: var(--color-mustard);
     color: var(--color-navy-deep);
     font-weight: 700;
     font-size: var(--step--1);
     padding: 0.3em 0.8em;
     border-radius: 999px;
+    flex: none;
   }
-  .notice-date { color: var(--color-mustard); font-weight: 600; font-size: var(--step--1); }
+  .notice-date { color: var(--color-mustard); font-weight: 600; font-size: var(--step--1); margin: 0; }
 </style>
