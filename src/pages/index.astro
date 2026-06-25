@@ -19,7 +19,7 @@ function stars(rating: number) {
 
 <Layout
   title="Maths & Science Tuition for Grades 7–10 in Indirapuram, Ghaziabad"
-  description="Mantra Academy offers CBSE and ICSE Maths and Science tuition for Grades 7 to 10 in Indirapuram, Ghaziabad. Strong foundations, step-by-step guidance. Book a free demo class."
+  description="Mantra Academy offers CBSE and ICSE Maths, Science, SST and English tuition for Grades 7 to 10 in Indirapuram, Ghaziabad. Strong foundations, step-by-step guidance. Book a free demo class."
   path="/"
 >
   <section class="hero">
@@ -28,9 +28,9 @@ function stars(rating: number) {
         <p class="eyebrow">💡 CBSE &amp; ICSE · Grades 7–10</p>
         <h1>Strong foundations.<br />Not a rushed syllabus.</h1>
         <p class="hero__lede">
-          Mantra Academy teaches Maths and Science the way it should be taught:
-          step by step, with concept clarity, so students build a real foundation
-          instead of just keeping pace with the syllabus.
+          Mantra Academy teaches Maths, Science, SST, and English the way they
+          should be taught: step by step, with concept clarity, so students build
+          a real foundation instead of just keeping pace with the syllabus.
         </p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/admissions">Book a Free Demo Class</a>
@@ -226,5 +226,13 @@ function stars(rating: number) {
   }
   @media (max-width: 640px) {
     .testimonial-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 900px) {
+    .hero { padding: var(--space-4) 0 var(--space-4); }
+    .hero__art { min-height: 260px; }
+    .stat-cluster { width: 260px; height: 260px; margin: 0 auto; }
+    .stat-chip--a { top: 0; left: 0; }
+    .stat-chip--b { top: 85px; right: 0; }
+    .stat-chip--c { top: 170px; left: 6%; }
   }
 </style>

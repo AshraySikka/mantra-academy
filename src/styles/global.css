@@ -11,6 +11,7 @@
   --color-mustard-light: #F0C04E;
   --color-cream: #F8F3E3;
   --color-cream-warm: #F1E8D0;
+  --color-card: #FFFBF2;
   --color-charcoal: #222222;
   --color-white: #FFFFFF;
 
@@ -160,10 +161,11 @@ img { max-width: 100%; display: block; }
 .btn--outline-navy:hover { background: rgba(27,58,99,0.06); }
 
 .card {
-  background: var(--color-white);
+  background: var(--color-card);
+  border: 1px solid rgba(27,58,99,0.08);
   border-radius: var(--radius);
   padding: var(--space-4);
-  box-shadow: 0 12px 30px -16px rgba(27,58,99,0.25);
+  box-shadow: 0 12px 30px -16px rgba(27,58,99,0.18);
 }
 
 .visually-hidden {
