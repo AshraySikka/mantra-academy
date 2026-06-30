@@ -97,9 +97,9 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "URL Slug", name: "slug", widget: "string", hint: "The post's URL will be: learnwithmantra.com/blog/your-slug — use lowercase letters and hyphens only, no spaces." }
+      - { label: "URL Slug", name: "slug", widget: "string", hint: "SHORT slug only: just the last part of the URL. Example: type 'maths-tips-grade-10' NOT 'learnwithmantra.com/blog/maths-tips-grade-10'" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "A 1–2 sentence summary shown on the blog listing page." }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "A 1-2 sentence summary shown on the blog listing page." }
       - { label: "Cover Image", name: "coverImage", widget: "image", required: false }
       - { label: "Meta Title (leave blank to use post title)", name: "metaTitle", widget: "string", required: false }
       - { label: "Meta Description (leave blank to use excerpt)", name: "metaDescription", widget: "text", required: false }
