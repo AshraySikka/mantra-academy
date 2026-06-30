@@ -1,11 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'ceo-message');
 ---
 
 <Layout
-  title="From the CEO's Desk"
-  description="A message from Rimple Shahpuri, Founder and Educator at Mantra Academy, with 17+ years of teaching experience."
+  title={seo?.data.title ?? "From the CEO's Desk"}
+  description={seo?.data.description ?? "A message from Rimple Shahpuri, Founder and Educator at Mantra Academy, with 17+ years of teaching experience."}
   path="/ceo-message"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="section ceo">
     <div class="container ceo__inner">

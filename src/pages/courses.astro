@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'courses');
 
 const grades = [7, 8, 9, 10];
 const boards = [
@@ -15,9 +18,12 @@ const boards = [
 ---
 
 <Layout
-  title="Courses: Maths, Science, SST & English, Grades 7–10, CBSE & ICSE"
-  description="Maths, Science, SST and English courses for Grades 7 to 10, covering both CBSE and ICSE boards, at Mantra Academy in Indirapuram, Ghaziabad."
+  title={seo?.data.title ?? "Courses: Maths, Science, SST & English, Grades 7–10, CBSE & ICSE"}
+  description={seo?.data.description ?? "Maths, Science, SST and English courses for Grades 7 to 10, covering both CBSE and ICSE boards, at Mantra Academy in Indirapuram, Ghaziabad."}
   path="/courses"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="section">
     <div class="container">

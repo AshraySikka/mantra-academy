@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'testimonials');
 
 const allTestimonials = (await getCollection('testimonials')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -25,9 +28,12 @@ function stars(rating: number) {
 ---
 
 <Layout
-  title="Reviews & Testimonials"
-  description="Read what parents and students say about Mantra Academy's Maths and Science tuition in Indirapuram, Ghaziabad."
+  title={seo?.data.title ?? "Reviews & Testimonials"}
+  description={seo?.data.description ?? "Read what parents and students say about Mantra Academy's Maths and Science tuition in Indirapuram, Ghaziabad."}
   path="/testimonials"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="section reviews-hero">
     <div class="container">

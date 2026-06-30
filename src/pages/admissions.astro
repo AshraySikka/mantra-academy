@@ -1,11 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'admissions');
 ---
 
 <Layout
-  title="Admissions & Contact"
-  description="Book a free demo class or get in touch with Mantra Academy in Indirapuram, Ghaziabad. WhatsApp, email, and inquiry form available."
+  title={seo?.data.title ?? "Admissions & Contact"}
+  description={seo?.data.description ?? "Book a free demo class or get in touch with Mantra Academy in Indirapuram, Ghaziabad. WhatsApp, email, and inquiry form available."}
   path="/admissions"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="section">
     <div class="container admissions-grid">

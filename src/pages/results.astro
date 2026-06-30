@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'results');
 
 const scienceResults = [
   { name: "Srishti", score: 99 }, { name: "Harshil", score: 98 }, { name: "Danish", score: 98 },
@@ -35,9 +38,12 @@ const top = Math.max(...allScores);
 ---
 
 <Layout
-  title="Results"
-  description="Real board exam results achieved through Mantra Academy's teaching approach."
+  title={seo?.data.title ?? "Results"}
+  description={seo?.data.description ?? "Real board exam results achieved through Mantra Academy's teaching approach."}
   path="/results"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="results-hero">
     <div class="container">

@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'updates');
 
 const notices = (await getCollection('notices')).sort((a, b) => {
   if (a.data.pinned !== b.data.pinned) return a.data.pinned ? -1 : 1;
@@ -9,9 +12,12 @@ const notices = (await getCollection('notices')).sort((a, b) => {
 ---
 
 <Layout
-  title="Updates & Noticeboard"
-  description="Latest updates, notices, and announcements from Mantra Academy."
+  title={seo?.data.title ?? "Updates & Noticeboard"}
+  description={seo?.data.description ?? "Latest updates, notices, and announcements from Mantra Academy."}
   path="/updates"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="section">
     <div class="container">

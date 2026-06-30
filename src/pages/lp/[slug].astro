@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('landingPages');
+  return pages.map((page) => ({
+    params: { slug: page.data.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<Layout
+  title={page.data.metaTitle ?? page.data.title}
+  description={page.data.metaDescription ?? page.data.heroSubtext ?? page.data.title}
+  path={`/lp/${page.data.slug}`}
+  ogImage={page.data.ogImage}
+  extraSchemaJson={page.data.schemaJson}
+>
+  <section class="section lp-hero">
+    <div class="container">
+      <p class="eyebrow">{page.data.pageType}</p>
+      <h1>{page.data.heroHeading}</h1>
+      {page.data.heroSubtext && <p class="lp-hero__subtext">{page.data.heroSubtext}</p>}
+    </div>
+  </section>
+
+  <section class="section section--cream-warm">
+    <div class="container lp-body">
+      <Content />
+      <a class="btn btn--primary" href="/admissions">Book a Free Demo Class</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lp-hero__subtext { font-size: var(--step-1); max-width: 60ch; }
+  .lp-body { max-width: 720px; font-size: var(--step-0); line-height: 1.7; }
+  .lp-body :global(h2) { margin-top: var(--space-3); }
+  .lp-body :global(p) { margin-bottom: var(--space-2); }
+  .lp-body .btn { margin-top: var(--space-3); }
+</style>

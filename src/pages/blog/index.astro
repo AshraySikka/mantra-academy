@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'blog-index');
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout
+  title={seo?.data.title ?? "Blog"}
+  description={seo?.data.description ?? "Study tips, exam strategies, and updates from Mantra Academy."}
+  path="/blog"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Blog</p>
+      <h1>Study tips &amp; updates</h1>
+      <div class="blog-list">
+        {posts.length === 0 && <p>No posts yet. Check back soon.</p>}
+        {posts.map((post) => (
+          <a class="card blog-card" href={`/blog/${post.data.slug}`}>
+            <h2>{post.data.title}</h2>
+            <p class="blog-card__date">
+              {post.data.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </p>
+            <p>{post.data.excerpt}</p>
+            <span class="blog-card__readmore">Read more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .blog-list { display: flex; flex-direction: column; gap: var(--space-3); max-width: 760px; }
+  .blog-card { display: block; text-decoration: none; color: inherit; }
+  .blog-card h2 { margin-bottom: 0.2em; }
+  .blog-card__date { color: var(--color-mustard); font-weight: 600; font-size: var(--step--1); margin-bottom: 0.5em; }
+  .blog-card__readmore { color: var(--color-navy); font-weight: 700; font-size: var(--step--1); }
+</style>

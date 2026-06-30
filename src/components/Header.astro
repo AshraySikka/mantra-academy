@@ -1,15 +1,21 @@
 ---
-const links = [
+const primaryLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
   { href: '/courses', label: 'Courses' },
-  { href: '/results', label: 'Results' },
-  { href: '/ceo-message', label: "CEO's Desk" },
-  { href: '/testimonials', label: 'Reviews' },
   { href: '/updates', label: 'Updates' },
   { href: '/admissions', label: 'Admissions' },
 ];
+
+const moreLinks = [
+  { href: '/results', label: 'Results' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/ceo-message', label: "From the CEO's Desk" },
+  { href: '/testimonials', label: 'Reviews' },
+];
+
 const currentPath = new URL(Astro.request.url).pathname;
+const moreActive = moreLinks.some(l => currentPath === l.href);
 ---
 
 <header class="site-header">
@@ -25,18 +31,70 @@ const currentPath = new URL(Astro.request.url).pathname;
 
     <nav class="site-nav" aria-label="Primary">
       <ul>
-        {links.map((link) => (
+        {primaryLinks.map((link) => (
           <li>
             <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
               {link.label}
             </a>
           </li>
         ))}
+        <li class="dropdown">
+          <button class={`dropdown__trigger${moreActive ? ' active' : ''}`} aria-haspopup="true" aria-expanded="false">
+            More ▾
+          </button>
+          <ul class="dropdown__menu" role="menu">
+            {moreLinks.map((link) => (
+              <li role="none">
+                <a href={link.href} role="menuitem" aria-current={currentPath === link.href ? 'page' : undefined}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
       </ul>
       <a class="btn btn--primary site-nav__cta" href="/admissions">Book Free Demo</a>
     </nav>
   </div>
 </header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <ul>
+    {[...primaryLinks, ...moreLinks].map((link) => (
+      <li>
+        <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <a class="btn btn--primary" href="/admissions" style="margin-top:0.5rem;">Book Free Demo</a>
+</nav>
+
+<script is:inline>
+  const trigger = document.querySelector('.dropdown__trigger');
+  const menu = document.querySelector('.dropdown__menu');
+  if (trigger && menu) {
+    trigger.addEventListener('click', () => {
+      const open = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('open', !open);
+    });
+    document.addEventListener('click', (e) => {
+      if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+        trigger.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('open');
+      }
+    });
+  }
+  const toggle = document.getElementById('nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  if (toggle && mobileNav) {
+    toggle.addEventListener('change', () => {
+      mobileNav.classList.toggle('open', toggle.checked);
+    });
+  }
+</script>
 
 <style>
   .site-header {
@@ -54,19 +112,16 @@ const currentPath = new URL(Astro.request.url).pathname;
     position: relative;
     min-height: 48px;
   }
-  .brand {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    z-index: 1;
+  .brand { 
+    display: flex; 
+    align-items: center; 
   }
-  .brand img {
-    height: 100px;
-    width: auto;
-    display: block;
+  .brand img { 
+    height: 56px; 
+    width: auto; 
+    display: block; 
+    transform: scale(1.8); /* Visually scales the logo up */
+    transform-origin: left center; /* Ensures it grows to the right, keeping the left alignment flush */
   }
 
   .nav-toggle { display: none; }
@@ -76,26 +131,25 @@ const currentPath = new URL(Astro.request.url).pathname;
     gap: 5px;
     cursor: pointer;
     padding: 0.5rem;
+    z-index: 51;
   }
   .nav-toggle-label span {
-    width: 26px;
-    height: 3px;
+    width: 26px; height: 3px;
     background: var(--color-navy);
     border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
+  .nav-toggle:checked + .nav-toggle-label span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .nav-toggle:checked + .nav-toggle-label span:nth-child(2) { opacity: 0; }
+  .nav-toggle:checked + .nav-toggle-label span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-  .site-nav {
+  .site-nav { display: flex; align-items: center; gap: var(--space-3); }
+  .site-nav > ul {
     display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    margin-left: 180px;
-  }
-  .site-nav ul {
-    display: flex;
-    gap: var(--space-3);
+    gap: var(--space-2);
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
+    align-items: center;
   }
   .site-nav a {
     font-weight: 600;
@@ -111,33 +165,75 @@ const currentPath = new URL(Astro.request.url).pathname;
     background: var(--color-mustard);
     border-radius: 2px;
   }
-  .site-nav__cta { font-size: var(--step--1); padding: 0.6em 1.3em; }
+  .site-nav__cta { font-size: var(--step--1); padding: 0.6em 1.3em; flex: none; }
 
+  .dropdown { position: relative; }
+  .dropdown__trigger {
+    background: none; border: none; cursor: pointer;
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--color-navy);
+    padding: 0;
+    font-family: inherit;
+  }
+  .dropdown__trigger.active { color: var(--color-mustard); }
+  .dropdown__menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-cream);
+    border: 2px solid var(--color-navy);
+    border-radius: var(--radius);
+    min-width: 200px;
+    list-style: none;
+    margin: 0; padding: 0.4rem 0;
+    box-shadow: 0 12px 28px -10px rgba(27,58,99,0.3);
+    z-index: 100;
+  }
+  .dropdown__menu.open { display: block; }
+  .dropdown__menu li a {
+    display: block;
+    padding: 0.55em 1.2em;
+    color: var(--color-navy);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  .dropdown__menu li a:hover { background: var(--color-cream-warm); }
+  .dropdown__menu li a[aria-current="page"] { color: var(--color-mustard); }
+
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--color-cream);
+    z-index: 49;
+    flex-direction: column;
+    padding: 6rem var(--space-3) var(--space-4);
+    overflow-y: auto;
+  }
+  .mobile-nav.open {
+    display: flex;
+  }
+  .mobile-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .mobile-nav li a {
+    display: block;
+    padding: 0.9em 0;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 700;
+    color: var(--color-navy);
+    border-bottom: 1px solid rgba(27,58,99,0.1);
+  }
+  .mobile-nav li a[aria-current="page"] { color: var(--color-mustard); }
+
+  @media (min-width: 881px) {
+    .mobile-nav { display: none !important; }
+    .nav-toggle-label { display: none; }
+  }
   @media (max-width: 880px) {
+    .site-nav { display: none; }
     .nav-toggle-label { display: flex; }
-    .brand {
-      position: static;
-      transform: none;
-    }
-    .brand img {
-      height: 68px;
-    }
-    .site-nav {
-      margin-left: 0;
-      position: absolute;
-      top: 100%; left: 0; right: 0;
-      background: var(--color-cream);
-      flex-direction: column;
-      align-items: stretch;
-      padding: var(--space-3);
-      border-bottom: 3px solid var(--color-navy);
-      display: none;
-      gap: var(--space-3);
-    }
-    .site-nav ul {
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    .nav-toggle:checked ~ .site-nav { display: flex; }
   }
 </style>

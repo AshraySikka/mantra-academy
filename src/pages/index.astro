@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+
+const seo = await getEntry('seo', 'home');
 
 const allTestimonials = await getCollection('testimonials');
 const featured = allTestimonials
@@ -18,9 +21,12 @@ function stars(rating: number) {
 ---
 
 <Layout
-  title="Maths & Science Tuition for Grades 7–10 in Indirapuram, Ghaziabad"
-  description="Mantra Academy offers CBSE and ICSE Maths, Science, SST and English tuition for Grades 7 to 10 in Indirapuram, Ghaziabad. Strong foundations, step-by-step guidance. Book a free demo class."
+  title={seo?.data.title ?? "Maths & Science Tuition for Grades 7–10 in Indirapuram, Ghaziabad"}
+  description={seo?.data.description ?? "Mantra Academy offers CBSE and ICSE Maths, Science, SST and English tuition for Grades 7 to 10 in Indirapuram, Ghaziabad. Strong foundations, step-by-step guidance. Book a free demo class."}
   path="/"
+  ogImage={seo?.data.ogImage}
+  canonicalOverride={seo?.data.canonicalOverride}
+  extraSchemaJson={seo?.data.schemaJson}
 >
   <section class="hero">
     <div class="hero__bg">
@@ -136,21 +142,21 @@ function stars(rating: number) {
     position: absolute; 
     inset: 0; 
     z-index: 0;
-    max-width: 1600px;
+    max-width: 1850px;
     margin: 0 auto; 
   }
   .hero__bg img { 
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    object-position: 0% 0%; 
+    object-position: 60% 40%; 
   }
   .hero__fade {
     position: absolute; 
     inset: 0;
     background: 
       /* 1. The left-to-right fade for the text */
-      linear-gradient(40deg,
+      linear-gradient(32deg,
         var(--color-cream) 0%,
         var(--color-cream) 42%,
         rgba(248,243,227,0.8) 52%,

@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout
+  title={post.data.metaTitle ?? post.data.title}
+  description={post.data.metaDescription ?? post.data.excerpt}
+  path={`/blog/${post.data.slug}`}
+  ogImage={post.data.coverImage}
+>
+  <article class="section blog-post">
+    <div class="container blog-post__inner">
+      <p class="eyebrow">Blog</p>
+      <h1>{post.data.title}</h1>
+      <p class="blog-post__date">
+        {post.data.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </p>
+      {post.data.coverImage && (
+        <img class="blog-post__cover" src={post.data.coverImage} alt={post.data.title} />
+      )}
+      <div class="blog-post__body">
+        <Content />
+      </div>
+      <a class="btn btn--outline-navy" href="/blog">← Back to all posts</a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .blog-post__inner { max-width: 720px; margin: 0 auto; }
+  .blog-post__date { color: var(--color-mustard); font-weight: 600; margin-bottom: var(--space-3); }
+  .blog-post__cover { width: 100%; border-radius: var(--radius); margin-bottom: var(--space-3); }
+  .blog-post__body { font-size: var(--step-0); line-height: 1.7; margin-bottom: var(--space-4); }
+  .blog-post__body :global(h2) { margin-top: var(--space-3); }
+  .blog-post__body :global(p) { margin-bottom: var(--space-2); }
+</style>

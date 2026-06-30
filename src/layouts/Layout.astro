@@ -1,20 +1,32 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
   path?: string;
+  ogImage?: string;
+  canonicalOverride?: string;
+  extraSchemaJson?: string;
 }
 
-const { title, description, path = '' } = Astro.props;
+const {
+  title,
+  description,
+  path = '',
+  ogImage,
+  canonicalOverride,
+  extraSchemaJson,
+} = Astro.props;
+
 const siteName = 'Mantra Academy';
 const fullTitle = `${title} | ${siteName}`;
-const SITE_URL = 'https://learnwithmantra.com';
-const canonicalURL = `${SITE_URL}${path}`;
+const SITE_URL = 'https://mantraacademy.example';
+const canonicalURL = canonicalOverride || `${SITE_URL}${path}`;
+const ogImageURL = ogImage ? (ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`) : `${SITE_URL}/images/og-cover.jpg`;
 
 const allTestimonials = await getCollection('testimonials');
 const reviewCount = allTestimonials.length;
@@ -43,12 +55,22 @@ const schema: Record<string, unknown> = {
     "https://www.facebook.com/share/1CpeZgonLD/"
   ]
 };
+
 if (avgRating && reviewCount > 0) {
   schema.aggregateRating = {
     "@type": "AggregateRating",
     "ratingValue": avgRating.toFixed(1),
     "reviewCount": reviewCount,
   };
+}
+
+let extraSchema: unknown = null;
+if (extraSchemaJson) {
+  try {
+    extraSchema = JSON.parse(extraSchemaJson);
+  } catch {
+    extraSchema = null;
+  }
 }
 ---
 
@@ -63,21 +85,22 @@ if (avgRating && reviewCount > 0) {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content="/images/og-cover.jpg" />
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:site_name" content={siteName} />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Local Business / Educational Org structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    {extraSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(extraSchema)} />
+    )}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -91,19 +114,10 @@ if (avgRating && reviewCount > 0) {
     </main>
     <Footer />
 
-    <!--
-      Netlify Identity widget — required for invite/password-reset/confirmation
-      links to work. Those links land on the site root with a token in the URL
-      hash (e.g. #recovery_token=...); this script detects that token and pops
-      up the "set your password" form. Without it, the link just opens the
-      homepage and does nothing.
-    -->
     <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script is:inline>
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          // no-op on init; widget auto-handles recovery/invite/confirmation tokens
-        });
+        window.netlifyIdentity.on("init", (user) => {});
         window.netlifyIdentity.on("login", () => {
           document.location.href = "/admin/";
         });

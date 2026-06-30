@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "pageType": {
+      "default": "other",
+      "type": "string",
+      "enum": [
+        "service",
+        "location",
+        "other"
+      ]
+    },
+    "heroHeading": {
+      "type": "string"
+    },
+    "heroSubtext": {
+      "type": "string"
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "string"
+    },
+    "ogImage": {
+      "type": "string"
+    },
+    "schemaJson": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "slug",
+    "heroHeading"
+  ]
+}

@@ -2,11 +2,16 @@ backend:
   name: git-gateway
   branch: main
 
-publish_mode: simple
+# Editorial workflow adds a Draft → Review → Ready → Publish flow.
+# Changes don't go live until someone clicks Publish: acts as a speed bump
+# for any external team. Not a hard permission lock, but adds a review step.
+publish_mode: editorial_workflow
+
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  # ── Noticeboard ──────────────────────────────────────────────
   - name: "notices"
     label: "Noticeboard"
     folder: "src/content/notices"
@@ -21,6 +26,7 @@ collections:
       - { label: "Short summary (shows on noticeboard list)", name: "summary", widget: "text" }
       - { label: "Full notice text", name: "body", widget: "markdown" }
 
+  # ── Reviews ──────────────────────────────────────────────────
   - name: "testimonials"
     label: "Reviews"
     folder: "src/content/testimonials"
@@ -32,5 +38,89 @@ collections:
       - { label: "Parent/Student name", name: "author", widget: "string" }
       - { label: "Star rating (1-5)", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
       - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Show on homepage (only top 4 newest featured ones show)", name: "featured", widget: "boolean", default: false }
+      - { label: "Show on homepage", name: "featured", widget: "boolean", default: false, hint: "Only the 5 newest featured reviews show on the homepage." }
       - { label: "Review text", name: "body", widget: "text" }
+
+  # ── SEO TEAM: Per-page meta tags, OG image, canonical URL, JSON-LD ────
+  - name: "seo"
+    label: "SEO Settings"
+    files:
+      - name: "home"
+        label: "Home Page"
+        file: "src/content/seo/home.md"
+        fields: &seoFields
+          - { label: "Meta Title", name: "title", widget: "string", required: false, hint: "Shown in the browser tab and Google search results. ~60 characters ideal." }
+          - { label: "Meta Description", name: "description", widget: "text", required: false, hint: "The snippet Google shows under the title. ~155 characters ideal." }
+          - { label: "Open Graph Image", name: "ogImage", widget: "image", required: false, hint: "Image shown when this page is shared on WhatsApp, Facebook, etc." }
+          - { label: "Canonical URL Override", name: "canonicalOverride", widget: "string", required: false, hint: "Leave blank unless you have a specific reason to override the canonical URL." }
+          - { label: "JSON-LD Schema (advanced)", name: "schemaJson", widget: "text", required: false, hint: "Paste the raw JSON object here — no script tags. Invalid JSON is safely ignored at build time." }
+      - name: "about"
+        label: "About Us Page"
+        file: "src/content/seo/about.md"
+        fields: *seoFields
+      - name: "courses"
+        label: "Courses Page"
+        file: "src/content/seo/courses.md"
+        fields: *seoFields
+      - name: "ceo-message"
+        label: "From the CEO's Desk Page"
+        file: "src/content/seo/ceo-message.md"
+        fields: *seoFields
+      - name: "testimonials-page"
+        label: "Reviews Page"
+        file: "src/content/seo/testimonials.md"
+        fields: *seoFields
+      - name: "updates"
+        label: "Updates Page"
+        file: "src/content/seo/updates.md"
+        fields: *seoFields
+      - name: "admissions"
+        label: "Admissions Page"
+        file: "src/content/seo/admissions.md"
+        fields: *seoFields
+      - name: "results"
+        label: "Results Page"
+        file: "src/content/seo/results.md"
+        fields: *seoFields
+      - name: "blog-index"
+        label: "Blog Listing Page"
+        file: "src/content/seo/blog-index.md"
+        fields: *seoFields
+
+  # ── SEO TEAM: Blog posts ───────────────────────────────────────────────
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "URL Slug", name: "slug", widget: "string", hint: "The post's URL will be: learnwithmantra.com/blog/your-slug — use lowercase letters and hyphens only, no spaces." }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "A 1–2 sentence summary shown on the blog listing page." }
+      - { label: "Cover Image", name: "coverImage", widget: "image", required: false }
+      - { label: "Meta Title (leave blank to use post title)", name: "metaTitle", widget: "string", required: false }
+      - { label: "Meta Description (leave blank to use excerpt)", name: "metaDescription", widget: "text", required: false }
+      - { label: "Post Content", name: "body", widget: "markdown" }
+
+  # ── SEO TEAM: Service / location landing pages ─────────────────────────
+  - name: "landingPages"
+    label: "Landing Pages"
+    folder: "src/content/landing-pages"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Internal Title", name: "title", widget: "string", hint: "Only shown here in the admin panel — not visible on the live page." }
+      - { label: "URL Slug", name: "slug", widget: "string", hint: "Page will be live at: learnwithmantra.com/lp/your-slug — use lowercase letters and hyphens only." }
+      - { label: "Page Type", name: "pageType", widget: "select", options: ["service", "location", "other"], default: "other" }
+      - { label: "Hero Heading", name: "heroHeading", widget: "string", hint: "The big headline at the top of the page." }
+      - { label: "Hero Subtext", name: "heroSubtext", widget: "text", required: false, hint: "Optional sentence under the heading." }
+      - { label: "Meta Title", name: "metaTitle", widget: "string", required: false }
+      - { label: "Meta Description", name: "metaDescription", widget: "text", required: false }
+      - { label: "Open Graph Image", name: "ogImage", widget: "image", required: false }
+      - { label: "JSON-LD Schema (advanced)", name: "schemaJson", widget: "text", required: false, hint: "Paste raw JSON object. Invalid JSON is safely ignored." }
+      - { label: "Page Content", name: "body", widget: "markdown" }
