@@ -1,5 +1,51 @@
+# robots.txt for learnwithmantra.com
+
 User-agent: *
 Allow: /
-Disallow: /admin/
 
-Sitemap: https://learnwithmantra.com/sitemap-index.xml
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+# Microsoft Bing
+User-agent: Bingbot
+Allow: /
+
+# OpenAI
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+# Common AI crawlers
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Sitemap
+Sitemap: https://learnwithmantra.com/sitemap.xml

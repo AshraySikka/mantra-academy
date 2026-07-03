@@ -1,0 +1,19 @@
+# Mantra Academy
+# https://learnwithmantra.com
+
+Site: https://learnwithmantra.com
+Title: Mantra Academy
+Description: CBSE and ICSE tuition academy for Grades 7 to 10 in Indirapuram, Ghaziabad. Subjects covered include Maths, Science, SST, and English.
+
+Owner: Gurpreet Shahpuri
+Language: en
+
+Topics:
+- CBSE Tuition
+- ICSE Tuition
+- Maths Tuition
+- Science Tuition
+- Grade 7 to 10
+
+Contact:
+https://learnwithmantra.com/admissions

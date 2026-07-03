@@ -1,0 +1,14 @@
+Site: https://learnwithmantra.com
+
+Primary Content:
+https://learnwithmantra.com/
+
+Categories:
+https://learnwithmantra.com/tutorials
+https://learnwithmantra.com/blog
+
+Sitemap:
+https://learnwithmantra.com/sitemap.xml
+
+Robots:
+https://learnwithmantra.com/robots.txt
