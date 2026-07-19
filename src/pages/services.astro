@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const pages = (await getCollection('landingPages')).sort(
+  (a, b) => a.data.title.localeCompare(b.data.title)
+);
+const services = pages.filter(p => p.data.pageType === 'service');
+const locations = pages.filter(p => p.data.pageType === 'location');
+const others = pages.filter(p => p.data.pageType === 'other');
+---
+
+<Layout
+  title="Our Services"
+  description="All tuition services and locations covered by Mantra Academy in Indirapuram, Ghaziabad."
+  path="/services"
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Services</p>
+      <h1>What we offer</h1>
+
+      {services.length > 0 && (
+        <>
+          <h2 class="services-subhead">By Subject</h2>
+          <div class="services-grid">
+            {services.map((page) => (
+              <a class="card services-card" href={`/lp/${page.data.slug}`}>
+                <h3>{page.data.heroHeading}</h3>
+                {page.data.heroSubtext && <p>{page.data.heroSubtext}</p>}
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+
+      {locations.length > 0 && (
+        <>
+          <h2 class="services-subhead">By Location</h2>
+          <div class="services-grid">
+            {locations.map((page) => (
+              <a class="card services-card" href={`/lp/${page.data.slug}`}>
+                <h3>{page.data.heroHeading}</h3>
+                {page.data.heroSubtext && <p>{page.data.heroSubtext}</p>}
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+
+      {others.length > 0 && (
+        <>
+          <h2 class="services-subhead">More</h2>
+          <div class="services-grid">
+            {others.map((page) => (
+              <a class="card services-card" href={`/lp/${page.data.slug}`}>
+                <h3>{page.data.heroHeading}</h3>
+                {page.data.heroSubtext && <p>{page.data.heroSubtext}</p>}
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .services-subhead {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+  .services-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s ease;
+  }
+  .services-card:hover { transform: translateY(-3px); }
+  .services-card h3 { margin-bottom: 0.3em; }
+  .services-card p { font-size: var(--step--1); margin: 0; }
+  @media (max-width: 760px) {
+    .services-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

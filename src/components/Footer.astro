@@ -1,5 +1,9 @@
 ---
+import { getCollection } from 'astro:content';
 const year = new Date().getFullYear();
+const landingPages = (await getCollection('landingPages')).sort(
+  (a, b) => a.data.title.localeCompare(b.data.title)
+);
 ---
 
 <footer class="site-footer">
@@ -12,10 +16,10 @@ const year = new Date().getFullYear();
     <div>
       <h2 class="footer-heading">Contact</h2>
       <p>
-          <a href="https://maps.app.goo.gl/ycRjhyuQ9EoyVZvEA">
-            Ground Floor, Plot No. 199, Shakti Khand III,<br />
-            Indirapuram, Ghaziabad, Uttar Pradesh 201010
-          </a>
+        <a href="https://maps.app.goo.gl/ycRjhyuQ9EoyVZvEA">
+          Ground Floor, Plot No. 199, Shakti Khand III,<br />
+          Indirapuram, Ghaziabad, Uttar Pradesh 201010
+        </a>
       </p>
       <p>
         <a href="tel:+919324688372">+91 93246 88372</a><br />
@@ -35,6 +39,22 @@ const year = new Date().getFullYear();
       </p>
       <a class="btn btn--outline footer-cta" href="/admissions">Book a Free Demo Class</a>
     </div>
+
+    {landingPages.length > 0 && (
+      <div>
+        <h2 class="footer-heading">Our Services</h2>
+        <ul class="footer-lp-list">
+          {landingPages.slice(0, 5).map((page) => (
+            <li>
+              <a href={`/lp/${page.data.slug}`}>{page.data.heroHeading}</a>
+            </li>
+          ))}
+        </ul>
+        {landingPages.length > 5 && (
+          <a href="/services" class="footer-view-all">View all services →</a>
+        )}
+      </div>
+    )}
   </div>
 
   <div class="container footer-bottom">
@@ -62,7 +82,7 @@ const year = new Date().getFullYear();
   .footer-social a:hover { background: var(--color-mustard); color: var(--color-navy-deep); }
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
     gap: var(--space-4);
     padding-bottom: var(--space-4);
   }
@@ -89,6 +109,29 @@ const year = new Date().getFullYear();
     font-size: var(--step--1);
     color: rgba(255,255,255,0.6);
     text-align: center;
+  }
+  .footer-lp-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+  }
+  .footer-lp-list a {
+    color: rgba(255,255,255,0.85);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+  .footer-view-all {
+    display: inline-block;
+    margin-top: 0.6em;
+    font-size: var(--step--1);
+    color: var(--color-mustard-light);
+    font-weight: 600;
+  }
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 720px) {
     .footer-grid { grid-template-columns: 1fr; }
