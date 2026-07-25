@@ -1,7 +1,7 @@
 ---
 title: home tuition agency in ghaziabad
 slug: home-tuition-agency-in-ghaziabad
-pageType: other
+pageType: service
 heroHeading: 📍 CBSE & ICSE · Grades 7–10 · Ghaziabad
 heroSubtext: The home tuition agency in Ghaziabad that builds real foundations.
 metaTitle: Home tuition agency in Ghaziabad - Mantra Academy
