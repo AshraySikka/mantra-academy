@@ -1,6 +1,6 @@
 ---
 title: home tuition agency in ghaziabad
-slug: home tuition agency in ghaziabad
+slug: home-tuition-agency-in-ghaziabad
 pageType: other
 heroHeading: 📍 CBSE & ICSE · Grades 7–10 · Ghaziabad
 heroSubtext: The home tuition agency in Ghaziabad that builds real foundations.
